@@ -74,6 +74,11 @@ const config = {
         }
       }
     }
+  },
+  alias: {
+    '@/components': 'src/components',
+    '@/utils': 'src/utils',
+    "@/images":'src/assets/images'
   }
 }
 

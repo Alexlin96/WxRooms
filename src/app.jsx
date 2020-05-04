@@ -21,13 +21,46 @@ class App extends Component {
 
   config = {
     pages: [ // 路由
-      'pages/index/index'
+      'pages/index/index',
+      'pages/message/index',
+      'pages/message/mesroom/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: { // 底部导航栏
+      color: '#bfbfbf',
+      selectedColor: '#009fbf',
+      backgroundColor: '#ffffff',
+      list: [
+        {
+          pagePath: "pages/index/index",
+          text: "主页",
+          iconPath: "./assets/images/tabar/room.png",
+          selectedIconPath: "./assets/images/tabar/room.png",
+        },
+        {
+          pagePath: "pages/order/order",
+          text: "订单",
+          iconPath: "./assets/images/tabar/order.png",
+          selectedIconPath: "./assets/images/tabar/order.png",
+        },
+        {
+          pagePath: "pages/message/index",
+          text: "消息",
+          iconPath: "./assets/images/tabar/message.png",
+          selectedIconPath: "./assets/images/tabar/message.png",
+        },
+        {
+          pagePath: "pages/mine/mine",
+          text: "我的",
+          iconPath: "./assets/images/tabar/mine.png",
+          selectedIconPath: "./assets/images/tabar/mine.png",
+        }
+      ]
     }
   }
 
