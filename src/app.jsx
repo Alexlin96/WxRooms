@@ -2,6 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
 
 import './app.less'
+// eslint-disable-next-line import/first
+import 'taro-ui/dist/style/index.scss' // 全局引入
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -23,7 +25,8 @@ class App extends Component {
     pages: [ // 路由
       'pages/index/index',
       'pages/message/index',
-      'pages/message/mesroom/index'
+      'pages/message/mesroom/index',
+      'pages/order/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -43,7 +46,7 @@ class App extends Component {
           selectedIconPath: "./assets/images/tabar/room.png",
         },
         {
-          pagePath: "pages/order/order",
+          pagePath: "pages/order/index",
           text: "订单",
           iconPath: "./assets/images/tabar/order.png",
           selectedIconPath: "./assets/images/tabar/order.png",
