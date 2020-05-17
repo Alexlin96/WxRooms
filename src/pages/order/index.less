@@ -15,6 +15,7 @@
 		background-color: #009fbf;
 	}
 	.order-top {
+		padding: 10px 0;
 		line-height: 50px;
 		font-size: 24px;
 		color: #1a1818;
@@ -25,6 +26,68 @@
 			position: absolute;
 			right: 0;
 			top: 0
+		}
+	}
+	.order-content {
+		padding: 30px 0 50px 220px;
+		border-top: 2px solid #ededed;
+		border-bottom: 2px solid #ededed;
+		height: 150px;
+		font-size: 28px;
+		color: #303030;
+		position: relative;
+		.content-img {
+			width: 200px;
+			height: 140px;
+			position: absolute;
+			top: 30px;
+			left: 0;
+			border-radius: 2%;
+		}
+		.content-title {
+			text-indent: 20px;
+			-webkit-line-clamp: 2; // 多行省略
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.content-mes {
+			font-size: 12px;
+			color: #606060;
+			margin-top: 10px;
+			// display: flex;
+			.taro-text {
+				padding-left: 20px;
+				padding-right: 10px
+			}
+		}
+	}
+	.order-bottom {
+		font-size: 16px;
+		color: #303030;
+		position: relative;
+		.bottom-money {
+			line-height: 100px;
+			.taro-text {
+				font-size: 18px;
+				color: #13a3bf;
+			}
+		}
+		.bottom-opt {
+			.taro-text {
+				display: inline-block;
+				font-size: 18px;
+				background: #13a3bf;
+				color: #fff;
+				line-height: 64px;
+				text-align: center;
+				width: 200px;
+				border-radius: 5px;
+				position: absolute;
+				top: 20px;
+				right:10px
+			}
 		}
 	}
 }

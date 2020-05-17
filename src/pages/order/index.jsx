@@ -1,14 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane } from 'taro-ui'
+import { View, Text, Block, Image } from '@tarojs/components'
+import { AtTabs, AtTabsPane, AtButton } from 'taro-ui'
 import './index.less'
+import houseImg from '@/images/order/Lighthouse.jpg'
 
 export default class Order extends Component {
 	constructor() {
 		super()
 		this.state = {
 			orderTypeList: [{ title: '全部' }, { title: '预订' }, { title: '待入住' }, { title: '已入住' }, { title: '已离店' }, { title: '已取消' }],
-			// orderTypeList: ['全部', '预订', '待入住', '已入住', '已离店', '已取消'],
 			orderTypeVal: 0,
 			order:[
 				{
@@ -18,7 +18,8 @@ export default class Order extends Component {
 					indateStr:'2018-09-15',
 					outdateStr:'2018-09-22',
 					payMoney:'6888.00',
-					ctrl:'0'
+					opt: 'pay',
+					imgUrl: houseImg
 				},
 				{
 					orderId: '852445763',
@@ -27,7 +28,8 @@ export default class Order extends Component {
 					indateStr: '2018-09-19',
 					outdateStr: '2018-09-22',
 					payMoney: '188.00',
-					ctrl: '1'
+					opt: 'cancel',
+					imgUrl: houseImg
 				},
 				{
 					orderId: '101894088',
@@ -36,7 +38,8 @@ export default class Order extends Component {
 					indateStr: '2018-09-30',
 					outdateStr: '2018-10-07',
 					payMoney: '18888.00',
-					ctrl: '2'
+					opt: 'comment',
+					imgUrl: houseImg
 				},
 				{
 					orderId: '935858107',
@@ -45,7 +48,8 @@ export default class Order extends Component {
 					indateStr: '2018-10-15',
 					outdateStr: '2018-10-22',
 					payMoney: '888.00',
-					ctrl: '4'
+					opt: 'successed',
+					imgUrl: houseImg
 				},
 				{
 					orderId: '935858107',
@@ -54,7 +58,8 @@ export default class Order extends Component {
 					indateStr: '2018-10-15',
 					outdateStr: '2018-11-22',
 					payMoney: '18888.00',
-					ctrl: '4'
+					opt: 'cancelled',
+					imgUrl: houseImg
 				}   
 			],
 		}
@@ -85,27 +90,95 @@ export default class Order extends Component {
 
   render () {
 		const orderStatusList = ['待支付', '待入住', '已入住', '已结束', '已取消']
+		const optMap = {
+			pay: '立即支付',
+			cancel: '取消',
+			comment: '去评价',
+			successed: '交易完成',
+			cancelled: '交易取消'
+		}
     return (
       <View className='order'>
 				<AtTabs current={this.state.orderTypeVal} tabList={this.state.orderTypeList} onClick={this.handleClick.bind(this)} scroll>
 					{
-						this.state.order.map((item, index) => {
+						this.state.orderTypeList.map((item, index) => {
 							return (
-								<AtTabsPane current={this.state.orderTypeVal} index={index} key={index} className="tab-item">
-									<View className='order-top'>
-										订单编号：{item.orderId}
-										<Text>{orderStatusList[item.orderStatus]}</Text>
-									</View>	
+								<AtTabsPane current={this.state.orderTypeVal} index={index} key={index}>
+									{
+										this.state.order.map((orderItem, orderInex) => {
+											if (index === 0) {
+												return (
+													<View className="tab-item">
+														<View className='order-top'>
+															订单编号：{orderItem.orderId}
+															<Text>{orderStatusList[orderItem.orderStatus-1]}</Text>
+														</View>
+														<View className='order-content'>
+															<Image src={orderItem.imgUrl} className='content-img' mode='aspectFill'/>
+															<Block>
+																<View className='content-title'>{ orderItem.roomTitle }</View>
+																<View className='content-mes'>
+																	<Text>入住：{orderItem.indateStr}</Text>
+																</View>
+																<View className='content-mes'>
+																	<Text>退房：{orderItem.outdateStr} 12:00前</Text>
+																</View>
+															</Block>
+														</View>
+														<View className='order-bottom at-row'>
+															<View className='at-col at-col-6 bottom-money'>
+																订单总额：
+																<Text>{orderItem.payMoney}</Text>
+															</View>
+															<View className='at-col at-col-6 bottom-opt'>
+																{
+																	(!['successed', 'cancelled'].includes(orderItem.opt)) && <Text data-index={orderItem.opt}>{optMap[orderItem.opt]}</Text>
+																}
+															</View>
+														</View>
+													</View>
+													)
+											} else {
+												if (orderItem.orderStatus === index) {
+													return (
+														<View className="tab-item">
+															<View className='order-top'>
+																订单编号：{orderItem.orderId}
+																<Text>{orderStatusList[orderItem.orderStatus-1]}</Text>
+															</View>
+															<View className='order-content'>
+																<Image src={orderItem.imgUrl} className='content-img' mode='aspectFill'/>
+																<Block>
+																	<View className='content-title'>{ orderItem.roomTitle }</View>
+																	<View className='content-mes'>
+																		<Text>入住：{orderItem.indateStr}</Text>
+																	</View>
+																	<View className='content-mes'>
+																		<Text>退房：{orderItem.outdateStr} 12:00前</Text>
+																	</View>
+																</Block>
+															</View>
+															<View className='order-bottom at-row'>
+																<View className='at-col at-col-6 bottom-money'>
+																	订单总额：
+																	<Text>{orderItem.payMoney}</Text>
+																</View>
+																<View className='at-col at-col-6 bottom-opt'>
+																	{
+																		(!['successed', 'cancelled'].includes(orderItem.opt)) && <Text data-index={orderItem.opt}>{optMap[orderItem.opt]}</Text>
+																	}
+																</View>
+															</View>
+														</View>
+													)
+												}
+											}
+										})
+									}			
 								</AtTabsPane>
 							)
 						})
 					}
-					{/* <AtTabsPane current={this.state.current} index={1}>
-						<View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
-					</AtTabsPane>
-					<AtTabsPane current={this.state.current} index={2}>
-						<View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页三的内容</View>
-					</AtTabsPane> */}
 				</AtTabs>
       </View>
     )
