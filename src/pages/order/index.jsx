@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Block, Image } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtButton } from 'taro-ui'
-import './index.less'
 import houseImg from '@/images/order/Lighthouse.jpg'
+import { View, Text, Block, Image } from '@tarojs/components'
+import { AtTabs, AtTabsPane, AtMessage } from 'taro-ui'
+import './index.less'
 
 export default class Order extends Component {
 	constructor() {
@@ -83,6 +83,69 @@ export default class Order extends Component {
 		})
 	}
 
+	// 操作按钮
+	optFn(obj) {
+		switch (obj.opt) {
+			case 'pay':
+				this.toPayFn(obj)
+				break;
+			case 'cancel':
+				this.toCancelFn(obj)
+				break;
+			case 'comment':
+				this.toCommentFn(obj)
+				break;
+			default:
+				break;
+		}
+	}
+	// 支付
+	toPayFn(obj) {
+		const { orderId } = obj
+		Taro.showToast({
+			title: `该订单编号:${orderId}支付失败(功能开发中 暂不支持)`,
+			icon: 'none',
+			duration: 2000
+		})
+	}
+	// 取消
+	toCancelFn(obj) {
+		const { orderId } = obj
+		const that = this
+		Taro.showModal({
+			title: `提示(订单号${orderId})`,
+			content: '确定取消此订单？',
+			success: function (res) {
+				if (res.confirm) {
+					const { order } = that.state
+					order.forEach(el => {
+						if (el.orderId === orderId) {
+							el.opt = 'cancelled'
+							el.orderStatus = 5
+						}
+					})
+					that.setState({
+						order
+					}, () => {
+						Taro.atMessage({
+							'message': '成功取消订单',
+							'type': 'success'
+						})
+					})
+				}
+			}
+		})
+	}
+	// 评论
+	toCommentFn(obj) {
+		const { orderId } = obj
+		Taro.showToast({
+			title: `该订单编号:${orderId}评论失败(功能开发中 暂不支持)`,
+			icon: 'none',
+			duration: 2000
+		})
+	}
+
   config = {
     navigationBarTitleText: '首页'
 	}
@@ -99,79 +162,46 @@ export default class Order extends Component {
 		}
     return (
       <View className='order'>
+				<AtMessage />
 				<AtTabs current={this.state.orderTypeVal} tabList={this.state.orderTypeList} onClick={this.handleClick.bind(this)} scroll>
 					{
 						this.state.orderTypeList.map((item, index) => {
 							return (
 								<AtTabsPane current={this.state.orderTypeVal} index={index} key={index}>
 									{
-										this.state.order.map((orderItem, orderInex) => {
-											if (index === 0) {
+										this.state.order.map((orderItem) => {
+											if (index === 0 || orderItem.orderStatus === index) {
 												return (
-													<View className="tab-item">
-														<View className='order-top'>
-															订单编号：{orderItem.orderId}
-															<Text>{orderStatusList[orderItem.orderStatus-1]}</Text>
-														</View>
-														<View className='order-content'>
-															<Image src={orderItem.imgUrl} className='content-img' mode='aspectFill'/>
-															<Block>
-																<View className='content-title'>{ orderItem.roomTitle }</View>
-																<View className='content-mes'>
-																	<Text>入住：{orderItem.indateStr}</Text>
-																</View>
-																<View className='content-mes'>
-																	<Text>退房：{orderItem.outdateStr} 12:00前</Text>
-																</View>
-															</Block>
-														</View>
-														<View className='order-bottom at-row'>
-															<View className='at-col at-col-6 bottom-money'>
-																订单总额：
-																<Text>{orderItem.payMoney}</Text>
+												<View className='tab-item'>
+													<View className='order-top'>
+														订单编号：{orderItem.orderId}
+														<Text>{orderStatusList[orderItem.orderStatus-1]}</Text>
+													</View>
+													<View className='order-content'>
+														<Image src={orderItem.imgUrl} className='content-img' mode='aspectFill' />
+														<Block>
+															<View className='content-title'>{ orderItem.roomTitle }</View>
+															<View className='content-mes'>
+																<Text>入住：{orderItem.indateStr}</Text>
 															</View>
-															<View className='at-col at-col-6 bottom-opt'>
-																{
-																	(!['successed', 'cancelled'].includes(orderItem.opt)) && <Text data-index={orderItem.opt}>{optMap[orderItem.opt]}</Text>
-																}
+															<View className='content-mes'>
+																<Text>退房：{orderItem.outdateStr} 12:00前</Text>
 															</View>
+														</Block>
+													</View>
+													<View className='order-bottom at-row'>
+														<View className='at-col at-col-6 bottom-money'>
+															订单总额：
+															<Text>{orderItem.payMoney}</Text>
+														</View>
+														<View className='at-col at-col-6 bottom-opt'>
+															{
+																(!['successed', 'cancelled'].includes(orderItem.opt)) && <Text data-index={orderItem.opt} onClick={this.optFn.bind(this, orderItem)}>{optMap[orderItem.opt]}</Text>
+															}
 														</View>
 													</View>
-													)
-											} else {
-												if (orderItem.orderStatus === index) {
-													return (
-														<View className="tab-item">
-															<View className='order-top'>
-																订单编号：{orderItem.orderId}
-																<Text>{orderStatusList[orderItem.orderStatus-1]}</Text>
-															</View>
-															<View className='order-content'>
-																<Image src={orderItem.imgUrl} className='content-img' mode='aspectFill'/>
-																<Block>
-																	<View className='content-title'>{ orderItem.roomTitle }</View>
-																	<View className='content-mes'>
-																		<Text>入住：{orderItem.indateStr}</Text>
-																	</View>
-																	<View className='content-mes'>
-																		<Text>退房：{orderItem.outdateStr} 12:00前</Text>
-																	</View>
-																</Block>
-															</View>
-															<View className='order-bottom at-row'>
-																<View className='at-col at-col-6 bottom-money'>
-																	订单总额：
-																	<Text>{orderItem.payMoney}</Text>
-																</View>
-																<View className='at-col at-col-6 bottom-opt'>
-																	{
-																		(!['successed', 'cancelled'].includes(orderItem.opt)) && <Text data-index={orderItem.opt}>{optMap[orderItem.opt]}</Text>
-																	}
-																</View>
-															</View>
-														</View>
-													)
-												}
+												</View>
+												)
 											}
 										})
 									}			
