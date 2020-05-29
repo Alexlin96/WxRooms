@@ -23,7 +23,7 @@ class App extends Component {
 
   config = {
     pages: [ // 路由
-      'pages/index/index',
+      'pages/home/index',
       'pages/message/index',
       'pages/message/mesroom/index',
       'pages/order/index'
@@ -40,7 +40,7 @@ class App extends Component {
       backgroundColor: '#ffffff',
       list: [
         {
-          pagePath: "pages/index/index",
+          pagePath: "pages/home/index",
           text: "主页",
           iconPath: "./assets/images/tabar/room.png",
           selectedIconPath: "./assets/images/tabar/room.png",

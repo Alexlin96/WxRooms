@@ -147,7 +147,7 @@ export default class Order extends Component {
 	}
 
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '订单'
 	}
 
 
@@ -172,35 +172,35 @@ export default class Order extends Component {
 										this.state.order.map((orderItem) => {
 											if (index === 0 || orderItem.orderStatus === index) {
 												return (
-												<View className='tab-item'>
-													<View className='order-top'>
-														订单编号：{orderItem.orderId}
-														<Text>{orderStatusList[orderItem.orderStatus-1]}</Text>
-													</View>
-													<View className='order-content'>
-														<Image src={orderItem.imgUrl} className='content-img' mode='aspectFill' />
-														<Block>
-															<View className='content-title'>{ orderItem.roomTitle }</View>
-															<View className='content-mes'>
-																<Text>入住：{orderItem.indateStr}</Text>
-															</View>
-															<View className='content-mes'>
-																<Text>退房：{orderItem.outdateStr} 12:00前</Text>
-															</View>
-														</Block>
-													</View>
-													<View className='order-bottom at-row'>
-														<View className='at-col at-col-6 bottom-money'>
-															订单总额：
-															<Text>{orderItem.payMoney}</Text>
+													<View className='tab-item'>
+														<View className='order-top'>
+															订单编号：{orderItem.orderId}
+															<Text>{orderStatusList[orderItem.orderStatus-1]}</Text>
 														</View>
-														<View className='at-col at-col-6 bottom-opt'>
-															{
-																(!['successed', 'cancelled'].includes(orderItem.opt)) && <Text data-index={orderItem.opt} onClick={this.optFn.bind(this, orderItem)}>{optMap[orderItem.opt]}</Text>
-															}
+														<View className='order-content'>
+															<Image src={orderItem.imgUrl} className='content-img' mode='aspectFill' />
+															<Block>
+																<View className='content-title'>{ orderItem.roomTitle }</View>
+																<View className='content-mes'>
+																	<Text>入住：{orderItem.indateStr}</Text>
+																</View>
+																<View className='content-mes'>
+																	<Text>退房：{orderItem.outdateStr} 12:00前</Text>
+																</View>
+															</Block>
+														</View>
+														<View className='order-bottom at-row'>
+															<View className='at-col at-col-6 bottom-money'>
+																订单总额：
+																<Text>{orderItem.payMoney}</Text>
+															</View>
+															<View className='at-col at-col-6 bottom-opt'>
+																{
+																	(!['successed', 'cancelled'].includes(orderItem.opt)) && <Text data-index={orderItem.opt} onClick={this.optFn.bind(this, orderItem)}>{optMap[orderItem.opt]}</Text>
+																}
+															</View>
 														</View>
 													</View>
-												</View>
 												)
 											}
 										})
