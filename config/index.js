@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-commonjs
+const path = require('path')
+
 const config = {
   projectName: 'wxRooms',
   date: '2020-5-1',
@@ -76,9 +79,11 @@ const config = {
     }
   },
   alias: {
-    '@/components': 'src/components',
-    '@/utils': 'src/utils',
-    "@/images":'src/assets/images'
+    '@': path.resolve(__dirname, '..', 'src'),
+    '@actions': path.resolve(__dirname, '..', 'src/actions'),
+    '@reducers': path.resolve(__dirname, '..', 'src/reducers'),
+    '@constants': path.resolve(__dirname, '..', 'src/constants'),
+    "@images": path.resolve(__dirname, '..', 'src/assets/images'),
   }
 }
 

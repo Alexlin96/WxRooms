@@ -4,7 +4,7 @@ import './index.less'
 
 export default class Home extends Component {
   constructor() {
-    super()
+    super(...arguments)
     this.state = {
       banner: {
         imgUrlList: [

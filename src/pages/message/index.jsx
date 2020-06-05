@@ -1,11 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import tipPng from '@/images/mine-nav/set.png'
+import tipPng from '../../assets/images//mine-nav/set.png'
 import './index.less'
 
 export default class Index extends Component {
 	constructor() {
-		super()
+		super(...arguments)
 		this.state =  {
 			messdatalist: [
 				{

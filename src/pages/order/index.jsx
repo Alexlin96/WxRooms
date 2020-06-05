@@ -1,15 +1,18 @@
 import Taro, { Component } from '@tarojs/taro'
-import houseImg from '@/images/order/Lighthouse.jpg'
 import { View, Text, Block, Image } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtMessage } from 'taro-ui'
+import { connect } from '@tarojs/redux'
+import * as actions from '@actions/order'
+import houseImg from '../../assets/images/order/Lighthouse.jpg'
 import './index.less'
 
+@connect(state => state.order, actions)
 export default class Order extends Component {
 	constructor() {
-		super()
+		super(...arguments)
 		this.state = {
 			orderTypeList: [{ title: '全部' }, { title: '预订' }, { title: '待入住' }, { title: '已入住' }, { title: '已离店' }, { title: '已取消' }],
-			orderTypeVal: 0,
+			// orderTypeVal: 0,
 			order:[
 				{
 					orderId: '935858107',
@@ -77,10 +80,10 @@ export default class Order extends Component {
 	
 	// tab点击
 	handleClick(v) {
-		console.log('当前点击', v)
-		this.setState({
-			orderTypeVal: v
-		})
+		// this.setState({
+		// 	orderTypeVal: v
+		// })
+		this.props.dispatchOrderType(v)
 	}
 
 	// 操作按钮
@@ -163,11 +166,11 @@ export default class Order extends Component {
     return (
       <View className='order'>
 				<AtMessage />
-				<AtTabs current={this.state.orderTypeVal} tabList={this.state.orderTypeList} onClick={this.handleClick.bind(this)} scroll>
+				<AtTabs current={this.props.orderTypeVal} tabList={this.state.orderTypeList} onClick={this.handleClick.bind(this)} scroll>
 					{
 						this.state.orderTypeList.map((item, index) => {
 							return (
-								<AtTabsPane current={this.state.orderTypeVal} index={index} key={index}>
+								<AtTabsPane current={this.props.orderTypeVal} index={index} key={index}>
 									{
 										this.state.order.map((orderItem) => {
 											if (index === 0 || orderItem.orderStatus === index) {
