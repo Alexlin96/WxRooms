@@ -30,7 +30,8 @@ class App extends Component {
       'pages/home/index',
       'pages/message/index',
       'pages/message/mesroom/index',
-      'pages/order/index'
+      'pages/order/index',
+      'pages/mine/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -62,7 +63,7 @@ class App extends Component {
           selectedIconPath: "./assets/images/tabar/message.png",
         },
         {
-          pagePath: "pages/mine/mine",
+          pagePath: "pages/mine/index",
           text: "我的",
           iconPath: "./assets/images/tabar/mine.png",
           selectedIconPath: "./assets/images/tabar/mine.png",
