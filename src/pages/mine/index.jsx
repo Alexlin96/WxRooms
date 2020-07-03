@@ -43,9 +43,17 @@ export default class MIne extends Component {
 
   componentDidHide () { }
 
+  // 跳转对应页面
+  goNavFn(item) {
+    Taro.navigateTo({
+      url: `/pages/mine/${item.value}/index`
+    })
+  }
+
   config = {
     navigationBarTitleText: '我的'
   }
+
 
   render () {
     return (
@@ -60,7 +68,7 @@ export default class MIne extends Component {
           {
             this.state.nav.dataList.map(item => {
               return (
-                <View className='nav-item' key={item.value}>
+                <View className='nav-item' key={item.value} onClick={this.goNavFn.bind(this, item)}>
                   <Image className='nav-icon' src={item.icon} />
                   <Text className='nav-title'>{ item.label }</Text>
                 </View>

@@ -1,0 +1,106 @@
+.mesroom {
+  background: #f7f7f7;
+  .mess-item {
+    margin: 15px 0;
+    .mess-item-waiter {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin: 15px 0;
+      .mess-waiter-img {
+        margin: 0 30px;
+        display: block;
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+      }
+      .mess-waiter-box {
+        box-sizing: border-box;
+        padding: 15px 30px;
+        max-width: 60%;
+        height: auto;
+        background: #fff;
+        border-radius: 6px;
+        position: relative;
+        font-size: 16px;
+        color: black;
+      }
+      .mess-waiter-box:after {
+        content: "";
+        position: absolute;
+        border-style: solid;
+        border-left-color: transparent;
+        border-right-color: #fff;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        border-width: 10px;
+        bottom: calc(50% - 10px);
+        left: -20px;
+      }
+    }
+    .mess-item-user {
+      float: right;
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+      width: 100%;
+      margin: 15px 0;
+      .mess-user-img {
+        margin: 0 30px;
+        display: block;
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+      }
+      .mess-user-box {
+        box-sizing: border-box;
+        padding: 15px 30px;
+        max-width: 60%;
+        height: auto;
+        background: #13a3bf;
+        border-radius: 6px;
+        position: relative;
+        font-size: 16px;
+        color:#fff;
+      }
+      .mess-user-box:after {
+        content: "";
+        position: absolute;
+        border-style: solid;
+        border-left-color: #13a3bf;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        border-width: 10px;
+        bottom: calc(50% - 10px);
+        right: -20px;
+      }
+    }
+  }
+  .empty-box {
+    height: 80px;
+  }
+  .send-box {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    bottom: 0;
+    background: #fff; 
+    padding: 10px 20px;
+    box-sizing: border-box;
+    textarea {
+      background: #f2f2f2;
+      width: 100%;
+      min-height: 80px;
+      border: none;
+      border-radius: 6px;
+    }
+    .send-icon {
+      margin: 0 20px;
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+  }
+}

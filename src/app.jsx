@@ -31,7 +31,10 @@ class App extends Component {
       'pages/message/index',
       'pages/message/mesroom/index',
       'pages/order/index',
-      'pages/mine/index'
+      'pages/mine/index',
+      'pages/mine/evaluate/index',
+      // 'pages/mine/report/index',
+      // 'pages/mine/setting/index'
     ],
     window: {
       backgroundTextStyle: 'light',
