@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import './index.less'
+import { login } from '../../api/index';
 
 export default class MIne extends Component {
   constructor() {
@@ -50,6 +51,18 @@ export default class MIne extends Component {
     })
   }
 
+  // 登录
+  loginFn() {
+    console.log('登录点击')
+    const params = {
+      name: 'admin',
+      password: 'lzq123456'
+    }
+    login(params).then(res => {
+      console.log('请求的值', res)
+    })
+  }
+
   config = {
     navigationBarTitleText: '我的'
   }
@@ -75,6 +88,9 @@ export default class MIne extends Component {
               )
             })
           }
+        </View>
+        <View className='opt'>
+          <Button className='login-btn' onClick={this.loginFn.bind(this)}>登录</Button>
         </View>
       </View>
     )
